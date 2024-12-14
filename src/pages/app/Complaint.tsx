@@ -246,7 +246,7 @@ const Complaint = () => {
                         </div> */}
                         <div className='flex-1'>
                           <Form.Item className='mb-4' label='Nội dung phản hồi' name='feedbackContent'>
-                            <TextArea disabled={true} rows={7} className='p-2 border rounded custom-textarea' />
+                            <TextArea disabled={true} rows={5} className='p-2 border rounded custom-textarea' />
                           </Form.Item>
                         </div>
                         <div className='flex-1'>
