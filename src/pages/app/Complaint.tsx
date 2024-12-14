@@ -25,12 +25,46 @@ const Complaint = () => {
   const [form] = Form.useForm();
   const [rating, setRating] = useState(0);
   const [isSearch, setIsSearch] = useState(false);
+  const feedbackArray = [
+    "Đã ghi nhận vấn đề nước rò rỉ, đội bảo trì sẽ kiểm tra.",
+    "Đèn hành lang đã được sửa chữa xong.",
+    "Vấn đề mùi khó chịu đã được thông báo cho đội vệ sinh.",
+    "Đã gửi yêu cầu bảo trì để kiểm tra hệ thống cửa.",
+    "Đã lên lịch cắt tỉa cây vào tuần tới.",
+    "Đội kỹ thuật đang tiến hành kiểm tra thang máy.",
+    "Vấn đề âm thanh đã được thông báo với quán cà phê.",
+    "Đội kỹ thuật đang tiến hành kiểm tra thang máy.",
+    "Vấn đề âm thanh đã được thông báo với quán cà phê.",
+    "Hệ thống PCCC đã được kiểm tra và hoạt động bình thường.",
+    "Đội vệ sinh sẽ cải thiện công tác vệ sinh khu vực.",
+    "Sẽ tiến hành sửa chữa đường đi bộ trong tuần này.",
+    "Hệ thống nước nóng đã được bảo trì.",
+    "Cư dân vui lòng đỗ xe đúng quy định để đảm bảo an toàn.",
+    "Đội kỹ thuật đang kiểm tra lỗi thường xuyên của thang máy.",
+    "Đã nhắc nhở nhân viên bảo vệ cải thiện cách cư xử.",
+    "Đèn đường đã được thay mới.",
+    "Khu vực hành lang đã được dọn dẹp sạch sẽ.",
+    "Đồng hồ điện đã được kiểm tra và sửa chữa.",
+    "Hồ bơi đã được kiểm tra, đảm bảo an toàn cho cư dân.",
+    "Đội kỹ thuật đã khắc phục sự cố camera an ninh.",
+    "Đã yêu cầu cư dân tầng trên giảm tiếng ồn.",
+    "Hệ thống quạt thông gió sẽ được kiểm tra vào ngày mai.",
+    "Nhân viên bảo vệ đã được thay thế bằng người khác.",
+    "Thiết bị gym đang chờ linh kiện thay thế.",
+    "Cửa kính bị nứt đã được thay mới.",
+    "Đã liên hệ đơn vị xử lý động vật hoang dã để kiểm tra.",
+    "Thang máy sẽ được lắp điều hòa trong tháng tới.",
+    "Đường dây điện đã được sửa chữa an toàn.",
+    "Hệ thống xử lý rác thải đang được nâng cấp.",
+    "Khu vực vui chơi đã được cải thiện an toàn.",
+  ];
   const initialData = Array.from({ length: 50 }, (_, i) => ({
     id: `KN${(i + 1).toString().padStart(3, "0")}`,
     date: `2024-12-${(i % 30) + 1}`,
     status: i % 2 === 0 ? "Đã xử lý" : "Chưa xử lý",
-    feedbackContent: `Đây là nội dung phản hồi Đây là nội dung phản hồi của KN${(i + 1).toString().padStart(3, "0")}`,
+    feedbackContent: feedbackArray[i % feedbackArray.length],
   }));
+
   const [data, setData] = useState(initialData);
   const navigate = useNavigate();
   const pageSize = 8;
