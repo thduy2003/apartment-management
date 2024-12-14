@@ -79,7 +79,6 @@ const Complaint = () => {
       notification.success({
         message: "Thành công",
         description: "Gửi khiếu nại thành công",
-        duration: 10000,
       });
       initialData.push(newComplaint);
       setData([newComplaint, ...data]); // Thêm vào đầu danh sách
@@ -91,7 +90,6 @@ const Complaint = () => {
     notification.success({
       message: "Đánh giá phản hồi",
       description: "Đánh giá phản hồi thành công",
-      duration: 10000,
     });
 
     setRating(0);
