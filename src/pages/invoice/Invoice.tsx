@@ -1098,7 +1098,7 @@ const Invoice: React.FC = () => {
           <Pagination
             current={currentPage}
             pageSize={pageSize}
-            total={invoiceDetails.length}
+            total={newInvoiceDetails.length}
             onChange={handlePageChange}
             style={{ textAlign: "center" }}
           />
