@@ -95,7 +95,7 @@ const App: React.FC = () => {
           className='transition-all duration-400 ease-in-out'
         >
           <div className='flex flex-col items-center justify-center pt-4 px-4 mb-[24px]'>
-            <img className='w-[78px] h-[60px]' src='../../src/assets/images/logo.jpg'></img>
+            <img className='w-[78px] h-[60px]' src='../../public/logo.jpg'></img>
             <h1 className='text-[#1745E8] text-[16px] font-bold mb-[24px]'>HỆ THỐNG QUẢN LÝ CHUNG CƯ</h1>
             <div className='border-t-[2px]  border-[#D6D6D6] border-solid w-full h-[2px]'></div>
           </div>
