@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Layout, Menu, MenuProps } from "antd";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { routes } from "./menu-item";
-import { AppstoreOutlined } from "@ant-design/icons";
+
 import "./LayoutMain.css";
 const { Sider, Content } = Layout;
 const App: React.FC = () => {
@@ -28,7 +28,7 @@ const App: React.FC = () => {
       return {
         label: <Link to={item.path}>{item.title}</Link>,
         key: `${item.path}`,
-        icon: <AppstoreOutlined />,
+        icon: item.icon,
       };
     });
     setMenuItems(full);
@@ -47,7 +47,7 @@ const App: React.FC = () => {
   }, [collapsed]);
 
   const pageTitles: { [key: string]: string } = {
-    "/admin/expenses": "QUẢN LÝ CHI PHÍ",
+    "/admin/expenses": "QUẢN LÝ KHOẢN CHI PHÍ",
     "/admin/invoices": "QUẢN LÝ HÓA ĐƠN",
     "/admin/utilities": "QUẢN LÝ TIỆN ÍCH",
     "/admin/apartments": "QUẢN LÝ CĂN HỘ",

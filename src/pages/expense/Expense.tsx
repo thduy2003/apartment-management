@@ -158,7 +158,20 @@ const Expense: React.FC = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const [expenseData, setExpenseData] = useState<ExpenseDataType[]>(initialExpenseData);
   const [currentExpense, setCurrentExpense] = useState<ExpenseDataType | null>(null);
+  const [searchText, setSearchText] = useState<string>("");
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchText(value);
+
+    const filteredData = initialExpenseData.filter(
+      (expense) =>
+        expense.name.toLowerCase().includes(value.toLowerCase()) ||
+        expense.status.toLowerCase().includes(value.toLowerCase()) ||
+        expense.expenseId.toString().toLowerCase().includes(value.toLowerCase())
+    );
+    setExpenseData(filteredData);
+  };
   const handleSubmit = async (values: ExpenseDataType) => {
     if (currentExpense) {
       // Cập nhật thông tin chi phí
@@ -321,7 +334,7 @@ const Expense: React.FC = () => {
         </Form>
       </Modal>
       <div className='bg-white p-3 rounded-xl flex items-center justify-between gap-3'>
-        <Input placeholder='Tìm kiếm' />
+        <Input placeholder='Tìm kiếm' value={searchText} onChange={handleSearchChange} />
         <div className='flex items-center gap-2'>
           <div
             onClick={showDeleteModal}

@@ -2,6 +2,6 @@
 export interface RouteInfo {
   path: string;
   title: string;
-  icon: string;
+  icon: React.ReactNode;
   allowedGroups?: string[];
 }

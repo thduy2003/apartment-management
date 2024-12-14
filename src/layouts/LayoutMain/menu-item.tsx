@@ -1,20 +1,21 @@
 import { RouteInfo } from "./sidebar.metadata";
+import { DollarOutlined, HomeOutlined, RedEnvelopeOutlined, UserOutlined, WindowsOutlined } from "@ant-design/icons";
 
 export const routes: RouteInfo[] = [
   {
     path: "/admin/expenses",
     title: "Quản lý khoản chi phí",
-    icon: "zmdi zmdi-view-dashboard",
+    icon: <DollarOutlined />,
   },
   {
     path: "/admin/invoices",
     title: "Quản lý hóa đơn",
-    icon: "zmdi zmdi-view-dashboard",
+    icon: <RedEnvelopeOutlined />,
   },
   {
     path: "/admin/utilities",
     title: "Quản lý tiện ích",
-    icon: "zmdi zmdi-view-dashboard",
+    icon: <WindowsOutlined />,
   },
   // {
   //   path: '/admin/class/${id}',
@@ -25,11 +26,11 @@ export const routes: RouteInfo[] = [
   {
     path: "/admin/apartments",
     title: "Quản lý căn hộ",
-    icon: "zmdi zmdi-view-dashboard",
+    icon: <HomeOutlined />,
   },
   {
     path: "/admin/residents",
     title: "Quản lý cư dân đại diện",
-    icon: "zmdi zmdi-view-dashboard",
+    icon: <UserOutlined />,
   },
 ];
