@@ -1,0 +1,12 @@
+.menu-complaint .ant-menu-overflow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+}
+.menu-complaint {
+  border-radius: 12px;
+}
+.custom-textarea {
+  resize: none !important;
+}
