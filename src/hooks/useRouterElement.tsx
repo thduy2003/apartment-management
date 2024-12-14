@@ -69,6 +69,38 @@ export default function useRoutesElements() {
             </ProtectedRoute>
           ),
         },
+        {
+          path: "notifications",
+          element: (
+            <ProtectedRoute>
+              <h1>Thông báo</h1>
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "cards",
+          element: (
+            <ProtectedRoute>
+              <h1>Thẻ</h1>
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "reports",
+          element: (
+            <ProtectedRoute>
+              <h1>Báo cáo</h1>
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "care",
+          element: (
+            <ProtectedRoute>
+              <h1>Chăm sóc cư dân</h1>
+            </ProtectedRoute>
+          ),
+        },
       ],
     },
     {

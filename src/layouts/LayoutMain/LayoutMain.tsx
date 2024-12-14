@@ -52,6 +52,10 @@ const App: React.FC = () => {
     "/admin/utilities": "QUẢN LÝ TIỆN ÍCH",
     "/admin/apartments": "QUẢN LÝ CĂN HỘ",
     "/admin/residents": "QUẢN LÝ CƯ DÂN ĐẠI DIỆN",
+    "/admin/cards": "QUẢN LÝ ĐĂNG KÝ THẺ",
+    "/admin/reports": "BÁO CÁO THỐNG KÊ",
+    "/admin/notifications": "THÔNG BÁO",
+    "/admin/care": "CHĂM SÓC CƯ DÂN",
   };
 
   // Lấy tiêu đề dựa trên pathname
