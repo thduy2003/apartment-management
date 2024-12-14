@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { MenuProps } from "antd";
-import { Button, Form, Input, Menu, notification, Pagination, Table } from "antd";
+import { Button, Form, Input, Menu, notification, Pagination, Select, Table } from "antd";
 import "./Complaint.css";
 import TextArea from "antd/es/input/TextArea";
 import { StarOutlined, StarFilled, LeftOutlined, SearchOutlined, PlusOutlined } from "@ant-design/icons";
@@ -74,6 +74,10 @@ const Complaint = () => {
         date: new Date().toISOString().split("T")[0], // Lấy ngày hiện tại
         status: "Chưa xử lý",
       };
+      notification.success({
+        message: "Thành công",
+        description: "Gửi khiếu nại thành công",
+      });
       initialData.push(newComplaint);
       setData([newComplaint, ...data]); // Thêm vào đầu danh sách
       setComplaintContent(""); // Xóa nội dung TextArea
@@ -97,9 +101,13 @@ const Complaint = () => {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
 
-    const filteredData = initialData.filter((complaint) => complaint.id.toLowerCase().includes(value.toLowerCase()));
+    const filteredData = initialData.filter(
+      (complaint) =>
+        complaint.id.toLowerCase().includes(value.toLowerCase()) || complaint.status.toLowerCase().includes(value.toLowerCase())
+    );
     setData(filteredData);
   };
+  const complaintOptions = Array.from(new Set(initialData.filter((data) => data.status === "Đã xử lý").map((data) => data.id)));
 
   return (
     <div className='sm:max-w-[390px] max-sm:w-full flex justify-center mx-auto h-screen '>
@@ -180,14 +188,20 @@ const Complaint = () => {
                       <div className=' gap-x-3'>
                         <div className='flex-1'>
                           <Form.Item className='mb-4' label='Chọn khiếu nại' name='complaintId'>
-                            <Input className='p-2 border rounded' />
+                            <Select placeholder='Chọn khiếu nại'>
+                              {complaintOptions.map((complaint) => (
+                                <Select.Option key={complaint} value={complaint}>
+                                  {complaint}
+                                </Select.Option>
+                              ))}
+                            </Select>{" "}
                           </Form.Item>
                         </div>
-                        <div className='flex-1'>
+                        {/* <div className='flex-1'>
                           <Form.Item className='mb-4' label='Nội dung khiếu nại' name='complaintContent'>
                             <Input className='p-2 border rounded' />
                           </Form.Item>
-                        </div>
+                        </div> */}
                         <div className='flex-1'>
                           <Form.Item className='mb-4' label='Nội dung phản hồi' name='feedbackContent'>
                             <Input className='p-2 border rounded' />

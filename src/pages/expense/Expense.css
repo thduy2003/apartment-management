@@ -1,0 +1,10 @@
+.status-selector .ant-select-selector {
+  height: 39.6px !important;
+}
+.status-selector .ant-form-item-control-input {
+  height: 36.6px !important;
+}
+.status-selector .ant-select {
+  display: flex;
+  align-items: center;
+}

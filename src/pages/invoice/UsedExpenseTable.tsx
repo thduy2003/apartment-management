@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table, Form, Select, InputNumber, Modal, Input, notification } from "antd";
 import { DeleteOutlined, PlusSquareOutlined } from "@ant-design/icons";
 import { ExpenseDataType } from "../expense/Expense";
@@ -17,7 +17,9 @@ interface UsedExpensesTableProps {
 }
 
 const UsedExpensesTable: React.FC<UsedExpensesTableProps> = ({ initialExpenses, initialExpenseData, onExpensesChange }) => {
+  console.log("initialExpenses", initialExpenses);
   const [expenses, setExpenses] = useState<ExpenseItem[]>(initialExpenses);
+  console.log("expenses", expenses);
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
   const [addForm] = Form.useForm();
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
@@ -100,7 +102,9 @@ const UsedExpensesTable: React.FC<UsedExpensesTableProps> = ({ initialExpenses, 
     },
   };
   const totalPrice = expenses.reduce((total, current) => (total += current.total), 0);
-
+  useEffect(() => {
+    setExpenses(initialExpenses);
+  }, [initialExpenses]);
   return (
     <>
       <div className='flex justify-end mb-4 gap-3'>

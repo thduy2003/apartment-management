@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Col, Flex, Form, Input, Modal, notification, Pagination, Row, Select, Table } from "antd";
+import { Button, Col, Flex, Form, Input, Modal, notification, Pagination, Row, Select, Space, Table } from "antd";
 import type { TableColumnsType, TableProps } from "antd";
 import { Calendar, theme } from "antd";
 import type { Dayjs } from "dayjs";
@@ -7,7 +7,6 @@ import { ExpenseDataType, initialExpenseData } from "../expense/Expense";
 import moment from "moment";
 import { EditOutlined } from "@ant-design/icons";
 import UsedExpensesTable from "./UsedExpenseTable";
-
 type TableRowSelection<T extends object = object> = TableProps<T>["rowSelection"];
 
 interface InvoiceDataType {
@@ -36,7 +35,7 @@ interface InvoiceDetailDataType {
   invoiceId: React.Key;
   apartment: string;
   totalPrice: string;
-  createdDate: Date;
+  createdDate: string;
   usedExpenses: ExpenseItem[];
 }
 
@@ -46,7 +45,7 @@ const initialInvoiceData: InvoiceDataType[] = [
     apartment: "CH002",
     name: "CH002-Hóa đơn Tháng 11/2024",
     type: "Hóa đơn hàng tháng",
-    totalPrice: "700,000",
+    totalPrice: "580,000",
     status: "Đã thanh toán",
   },
   {
@@ -54,7 +53,7 @@ const initialInvoiceData: InvoiceDataType[] = [
     apartment: "CH003",
     name: "CH003-Hóa đơn Tháng 11/2024",
     type: "Hóa đơn phát sinh",
-    totalPrice: "180,000",
+    totalPrice: "580,000",
     status: "Chưa thanh toán",
   },
   {
@@ -62,7 +61,7 @@ const initialInvoiceData: InvoiceDataType[] = [
     apartment: "CH005",
     name: "CH005-Hóa đơn Tháng 11/2024",
     type: "Hóa đơn hàng tháng",
-    totalPrice: "600,000",
+    totalPrice: "580,000",
     status: "Đã thanh toán",
   },
   {
@@ -70,7 +69,7 @@ const initialInvoiceData: InvoiceDataType[] = [
     apartment: "CH006",
     name: "CH006-Hóa đơn Tháng 11/2024",
     type: "Hóa đơn hàng tháng",
-    totalPrice: "500,000",
+    totalPrice: "580,000",
     status: "Đã thanh toán",
   },
   {
@@ -78,7 +77,7 @@ const initialInvoiceData: InvoiceDataType[] = [
     apartment: "CH008",
     name: "CH008-Hóa đơn Tháng 11/2024",
     type: "Hóa đơn hàng tháng",
-    totalPrice: "180,000",
+    totalPrice: "580,000",
     status: "Chưa thanh toán",
   },
   {
@@ -86,7 +85,7 @@ const initialInvoiceData: InvoiceDataType[] = [
     apartment: "CH008",
     name: "CH008-Hóa đơn phát sinh-Tháng 11/2024",
     type: "Hóa đơn phát sinh",
-    totalPrice: "300,000",
+    totalPrice: "580,000",
     status: "Đã thanh toán",
   },
   {
@@ -94,7 +93,7 @@ const initialInvoiceData: InvoiceDataType[] = [
     apartment: "CH009",
     name: "CH009-Hóa đơn Tháng 11/2024",
     type: "Hóa đơn hàng tháng",
-    totalPrice: "1,040,000",
+    totalPrice: "580,000",
     status: "Đã thanh toán",
   },
   {
@@ -102,7 +101,7 @@ const initialInvoiceData: InvoiceDataType[] = [
     apartment: "CH009",
     name: "CH009-Hóa đơn phát sinh-Tháng 11/2024",
     type: "Hóa đơn phát sinh",
-    totalPrice: "1,240,000",
+    totalPrice: "580,000",
     status: "Đã thanh toán",
   },
   {
@@ -110,7 +109,7 @@ const initialInvoiceData: InvoiceDataType[] = [
     apartment: "CH011",
     name: "CH009-Hóa đơn Tháng 11/2024",
     type: "Hóa đơn hàng tháng",
-    totalPrice: "180,000",
+    totalPrice: "580,000",
     status: "Đã thanh toán",
   },
   {
@@ -118,7 +117,7 @@ const initialInvoiceData: InvoiceDataType[] = [
     apartment: "CH013",
     name: "CH013-Hóa đơn Tháng 11/2024",
     type: "Hóa đơn hàng tháng",
-    totalPrice: "500,000",
+    totalPrice: "580,000",
     status: "Chưa thanh toán",
   },
   {
@@ -126,7 +125,7 @@ const initialInvoiceData: InvoiceDataType[] = [
     apartment: "CH015",
     name: "CH015-Hóa đơn Tháng 11/2024",
     type: "Hóa đơn hàng tháng",
-    totalPrice: "260,000",
+    totalPrice: "580,000",
     status: "Đã thanh toán",
   },
   {
@@ -134,7 +133,7 @@ const initialInvoiceData: InvoiceDataType[] = [
     apartment: "CH016",
     name: "CH016-Hóa đơn Tháng 11/2024",
     type: "Hóa đơn hàng tháng",
-    totalPrice: "700,000",
+    totalPrice: "580,000",
     status: "Đã thanh toán",
   },
   {
@@ -142,7 +141,7 @@ const initialInvoiceData: InvoiceDataType[] = [
     apartment: "CH016",
     name: "CH016-Hóa đơn phát sinh-Tháng 11/2024",
     type: "Hóa đơn phát sinh",
-    totalPrice: "3,200,000",
+    totalPrice: "580,000",
     status: "Đã thanh toán",
   },
 ];
@@ -288,6 +287,346 @@ const usedExpeses = [
     status: "Đang áp dụng",
   },
 ];
+const initialInvoiceDetails: InvoiceDetailDataType[] = [
+  {
+    invoiceId: "HD001",
+    apartment: "CH002",
+    totalPrice: "580,000",
+    usedExpenses: [
+      {
+        name: "Phí quản lý",
+        price: 240000,
+        number: 1,
+        total: 240000,
+      },
+      {
+        name: "Phí vệ sinh",
+        price: 160000,
+        number: 1,
+        total: 160000,
+      },
+      {
+        name: "Phí bảo vệ",
+        price: 180000,
+        number: 1,
+        total: 180000,
+      },
+    ],
+    createdDate: "2024-12-14T09:56:00.551Z",
+  },
+  {
+    invoiceId: "HD002",
+    apartment: "CH003",
+    totalPrice: "580,000",
+    usedExpenses: [
+      {
+        name: "Phí quản lý",
+        price: 240000,
+        number: 1,
+        total: 240000,
+      },
+      {
+        name: "Phí vệ sinh",
+        price: 160000,
+        number: 1,
+        total: 160000,
+      },
+      {
+        name: "Phí bảo vệ",
+        price: 180000,
+        number: 1,
+        total: 180000,
+      },
+    ],
+    createdDate: "2024-12-14T09:56:00.551Z",
+  },
+  {
+    invoiceId: "HD003",
+    apartment: "CH005",
+    totalPrice: "580,000",
+    usedExpenses: [
+      {
+        name: "Phí quản lý",
+        price: 240000,
+        number: 1,
+        total: 240000,
+      },
+      {
+        name: "Phí vệ sinh",
+        price: 160000,
+        number: 1,
+        total: 160000,
+      },
+      {
+        name: "Phí bảo vệ",
+        price: 180000,
+        number: 1,
+        total: 180000,
+      },
+    ],
+    createdDate: "2024-12-14T09:56:00.551Z",
+  },
+  {
+    invoiceId: "HD004",
+    apartment: "CH006",
+    totalPrice: "580,000",
+    usedExpenses: [
+      {
+        name: "Phí quản lý",
+        price: 240000,
+        number: 1,
+        total: 240000,
+      },
+      {
+        name: "Phí vệ sinh",
+        price: 160000,
+        number: 1,
+        total: 160000,
+      },
+      {
+        name: "Phí bảo vệ",
+        price: 180000,
+        number: 1,
+        total: 180000,
+      },
+    ],
+    createdDate: "2024-12-14T09:56:00.551Z",
+  },
+  {
+    invoiceId: "HD005",
+    apartment: "CH008",
+    totalPrice: "580,000",
+    usedExpenses: [
+      {
+        name: "Phí quản lý",
+        price: 240000,
+        number: 1,
+        total: 240000,
+      },
+      {
+        name: "Phí vệ sinh",
+        price: 160000,
+        number: 1,
+        total: 160000,
+      },
+      {
+        name: "Phí bảo vệ",
+        price: 180000,
+        number: 1,
+        total: 180000,
+      },
+    ],
+    createdDate: "2024-12-14T09:56:00.551Z",
+  },
+  {
+    invoiceId: "HD006",
+    apartment: "CH008",
+    totalPrice: "580,000",
+    usedExpenses: [
+      {
+        name: "Phí quản lý",
+        price: 240000,
+        number: 1,
+        total: 240000,
+      },
+      {
+        name: "Phí vệ sinh",
+        price: 160000,
+        number: 1,
+        total: 160000,
+      },
+      {
+        name: "Phí bảo vệ",
+        price: 180000,
+        number: 1,
+        total: 180000,
+      },
+    ],
+    createdDate: "2024-12-14T09:56:00.551Z",
+  },
+  {
+    invoiceId: "HD007",
+    apartment: "CH009",
+    totalPrice: "580,000",
+    usedExpenses: [
+      {
+        name: "Phí quản lý",
+        price: 240000,
+        number: 1,
+        total: 240000,
+      },
+      {
+        name: "Phí vệ sinh",
+        price: 160000,
+        number: 1,
+        total: 160000,
+      },
+      {
+        name: "Phí bảo vệ",
+        price: 180000,
+        number: 1,
+        total: 180000,
+      },
+    ],
+    createdDate: "2024-12-14T09:56:00.551Z",
+  },
+  {
+    invoiceId: "HD008",
+    apartment: "CH009",
+    totalPrice: "580,000",
+    usedExpenses: [
+      {
+        name: "Phí quản lý",
+        price: 240000,
+        number: 1,
+        total: 240000,
+      },
+      {
+        name: "Phí vệ sinh",
+        price: 160000,
+        number: 1,
+        total: 160000,
+      },
+      {
+        name: "Phí bảo vệ",
+        price: 180000,
+        number: 1,
+        total: 180000,
+      },
+    ],
+    createdDate: "2024-12-14T09:56:00.551Z",
+  },
+  {
+    invoiceId: "HD009",
+    apartment: "CH011",
+    totalPrice: "580,000",
+    usedExpenses: [
+      {
+        name: "Phí quản lý",
+        price: 240000,
+        number: 1,
+        total: 240000,
+      },
+      {
+        name: "Phí vệ sinh",
+        price: 160000,
+        number: 1,
+        total: 160000,
+      },
+      {
+        name: "Phí bảo vệ",
+        price: 180000,
+        number: 1,
+        total: 180000,
+      },
+    ],
+    createdDate: "2024-12-14T09:56:00.551Z",
+  },
+  {
+    invoiceId: "HD010",
+    apartment: "CH013",
+    totalPrice: "580,000",
+    usedExpenses: [
+      {
+        name: "Phí quản lý",
+        price: 240000,
+        number: 1,
+        total: 240000,
+      },
+      {
+        name: "Phí vệ sinh",
+        price: 160000,
+        number: 1,
+        total: 160000,
+      },
+      {
+        name: "Phí bảo vệ",
+        price: 180000,
+        number: 1,
+        total: 180000,
+      },
+    ],
+    createdDate: "2024-12-14T09:56:00.551Z",
+  },
+  {
+    invoiceId: "HD011",
+    apartment: "CH015",
+    totalPrice: "580,000",
+    usedExpenses: [
+      {
+        name: "Phí quản lý",
+        price: 240000,
+        number: 1,
+        total: 240000,
+      },
+      {
+        name: "Phí vệ sinh",
+        price: 160000,
+        number: 1,
+        total: 160000,
+      },
+      {
+        name: "Phí bảo vệ",
+        price: 180000,
+        number: 1,
+        total: 180000,
+      },
+    ],
+    createdDate: "2024-12-14T09:56:00.551Z",
+  },
+  {
+    invoiceId: "HD012",
+    apartment: "CH016",
+    totalPrice: "580,000",
+    usedExpenses: [
+      {
+        name: "Phí quản lý",
+        price: 240000,
+        number: 1,
+        total: 240000,
+      },
+      {
+        name: "Phí vệ sinh",
+        price: 160000,
+        number: 1,
+        total: 160000,
+      },
+      {
+        name: "Phí bảo vệ",
+        price: 180000,
+        number: 1,
+        total: 180000,
+      },
+    ],
+    createdDate: "2024-12-14T09:56:00.551Z",
+  },
+  {
+    invoiceId: "HD013",
+    apartment: "CH016",
+    totalPrice: "580,000",
+    usedExpenses: [
+      {
+        name: "Phí quản lý",
+        price: 240000,
+        number: 1,
+        total: 240000,
+      },
+      {
+        name: "Phí vệ sinh",
+        price: 160000,
+        number: 1,
+        total: 160000,
+      },
+      {
+        name: "Phí bảo vệ",
+        price: 180000,
+        number: 1,
+        total: 180000,
+      },
+    ],
+    createdDate: "2024-12-14T09:56:00.551Z",
+  },
+];
 
 const Invoice: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -298,6 +637,7 @@ const Invoice: React.FC = () => {
   const [selectedInvoice, setSelectedInvoice] = useState<InvoiceDetailDataType | null>(null);
   const [selectedApartments, setSelectedApartments] = useState<string>("all");
   const [isInvoiceDetailModalOpen, setIsInvoiceDetailModalOpen] = useState(false);
+  const [newInvoices, setNewInvoices] = useState<InvoiceDataType[]>([]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [selectedCalendar, setSelectedCalendar] = useState<any>({
@@ -305,7 +645,8 @@ const Invoice: React.FC = () => {
     month: "12",
   });
   const [isInvoiceDetailsModalOpen, setIsInvoiceDetailsModalOpen] = useState(false);
-  const [invoiceDetails, setInvoiceDetails] = useState<InvoiceDetailDataType[]>([]);
+  const [invoiceDetails, setInvoiceDetails] = useState<InvoiceDetailDataType[]>(initialInvoiceDetails);
+  const [newInvoiceDetails, setNewInvoicesDetails] = useState<InvoiceDetailDataType[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 6;
   const { token } = theme.useToken();
@@ -322,7 +663,6 @@ const Invoice: React.FC = () => {
     return `HD${(lastIdNumber + 1).toString().padStart(3, "0")}`;
   }
   const handleApartmentSelect = (value: string) => {
-    console.log("select", value);
     setSelectedApartments(value);
   };
   // Map usedExpenses to their corresponding expense data
@@ -353,9 +693,9 @@ const Invoice: React.FC = () => {
   ) {
     const details: InvoiceDetailDataType[] = [];
     const uniqueApartments = selectedApartments === "all" ? [...new Set(usedExpeses.map((used) => used.apartment))] : [selectedApartments];
-    const newInvoices: InvoiceDataType[] = [];
+    const invoices: InvoiceDataType[] = [];
     uniqueApartments.forEach((apartment) => {
-      const newInvoiceId = generateInvoiceId([...initialInvoiceData, ...newInvoices]);
+      const newInvoiceId = generateInvoiceId([...initialInvoiceData, ...invoices]);
       const usedExpenses = mapUsedExpenses(apartment, usedExpeses, initialExpenseData);
 
       const totalPrice = usedExpenses.reduce((sum, exp) => sum + (exp?.total || 0), 0);
@@ -364,10 +704,9 @@ const Invoice: React.FC = () => {
         apartment,
         totalPrice: totalPrice.toLocaleString("en-US"),
         usedExpenses,
-        createdDate: new Date(),
+        createdDate: new Date().toISOString(),
       });
-
-      newInvoices.push({
+      invoices.push({
         invoiceId: newInvoiceId,
         apartment,
         name: `${apartment}-Hóa đơn Tháng ${selectedCalendar.month}/${selectedCalendar.year}`,
@@ -376,7 +715,8 @@ const Invoice: React.FC = () => {
         status: "Chưa thanh toán",
       });
     });
-    setInvoiceData((prev) => [...prev, ...newInvoices]);
+    console.log("details", details);
+    setNewInvoices((prev) => [...prev, ...invoices]);
     return details;
   }
 
@@ -387,10 +727,58 @@ const Invoice: React.FC = () => {
     console.log("values", values);
     console.log("selected", selectedCalendar);
     const invoiceDetailsResponse = generateInvoiceDetails(initialInvoiceData, usedExpeses, initialExpenseData);
-    setInvoiceDetails((prev) => [...prev, ...invoiceDetailsResponse]);
+    setNewInvoicesDetails(invoiceDetailsResponse);
     setIsModalOpen(false);
     setIsInvoiceDetailsModalOpen(true);
+    console.log("invoiceData", invoiceData);
     form.resetFields();
+  };
+  const handleSendInvoice = () => {
+    setInvoiceData((prev) => [...prev, ...newInvoices]);
+    setInvoiceDetails((prev) => [...prev, ...newInvoiceDetails]);
+    setIsInvoiceDetailsModalOpen(false);
+    const btn = (
+      <Space>
+        <Button type='default' className='w-[72px]' onClick={() => notification.destroy()}>
+          Không
+        </Button>
+        <Button
+          className='bg-[#01DF68] text-white w-[72px]'
+          onClick={() => {
+            notification.destroy();
+            notification.success({
+              message: "",
+              description: "Tải hóa đơn thành công",
+              style: {
+                background: "#EDFFF8",
+              },
+            });
+          }}
+        >
+          Có
+        </Button>
+      </Space>
+    );
+    notification.success({
+      message: "",
+      description: (
+        <div>
+          <p>Hóa đơn đã được tạo và gửi đến cư dân thành công!</p>
+          <p>Bạn có muốn tải hóa đơn về máy?</p>
+        </div>
+      ),
+      btn,
+      duration: 10000,
+      icon: null,
+      style: {
+        width: 410,
+        padding: "33px 24px 10px",
+        background: "#EDFFF8",
+      },
+    });
+  };
+  const handleCancelSendInvoice = () => {
+    setIsInvoiceDetailsModalOpen(false);
   };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSave = async (values: any) => {
@@ -461,14 +849,19 @@ const Invoice: React.FC = () => {
     const value = e.target.value;
     setSearchText(value);
 
-    const filteredData = initialInvoiceData.filter((invoice) => invoice.name.toLowerCase().includes(value.toLowerCase()));
+    const filteredData = initialInvoiceData.filter(
+      (invoice) =>
+        invoice.name.toLowerCase().includes(value.toLowerCase()) ||
+        invoice.status.toLowerCase().includes(value.toLowerCase()) ||
+        invoice.apartment.toLowerCase().includes(value.toLowerCase())
+    );
     setInvoiceData(filteredData);
   };
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
-  const invoiceDetailsPaginatedData = invoiceDetails.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+  const invoiceDetailsPaginatedData = newInvoiceDetails.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   const uniqueApartments = ["all", ...Array.from(new Set(initialInvoiceData.map((data) => data.apartment)))];
 
@@ -570,7 +963,7 @@ const Invoice: React.FC = () => {
             </div>
             <div className='flex-1'>
               <Form.Item className='font-bold' label='Căn hộ' name='apartment'>
-                <Select placeholder='Chọn căn hộ' onChange={handleApartmentSelect}>
+                <Select placeholder='Chọn căn hộ' defaultValue={"all"} onChange={handleApartmentSelect}>
                   {uniqueApartments.map((apartment) => (
                     <Select.Option key={apartment} value={apartment}>
                       {apartment === "all" ? "Tất cả" : apartment}
@@ -610,7 +1003,13 @@ const Invoice: React.FC = () => {
                 <DatePicker format='DD-MM-YYYY' className='w-full p-2 border rounded' />
               </Form.Item> */}
               <Form.Item className='font-bold' label='Phương thức thanh toán' name='paymentMethod'>
-                <Input className='p-2 border rounded' />
+                <Select placeholder='Phương thức thanh toán'>
+                  {["Chuyển khoản", "Tiền mặt"].map((paymentMethod) => (
+                    <Select.Option key={paymentMethod} value={paymentMethod}>
+                      {paymentMethod}
+                    </Select.Option>
+                  ))}
+                </Select>{" "}
               </Form.Item>
             </div>
             <div className='flex-1'>
@@ -621,7 +1020,13 @@ const Invoice: React.FC = () => {
                 <DatePicker format='DD-MM-YYYY' className='w-full p-2 border rounded' />
               </Form.Item> */}
               <Form.Item className='font-bold' label='Trạng thái thanh toán' name='status'>
-                <Input className='p-2 border rounded' />
+                <Select placeholder='Trạng thái thanh toán' defaultValue={form.getFieldValue("status")}>
+                  {["Chưa thanh toán", "Đã thanh toán"].map((status) => (
+                    <Select.Option key={status} value={status}>
+                      {status}
+                    </Select.Option>
+                  ))}
+                </Select>
               </Form.Item>
             </div>
           </div>
@@ -689,13 +1094,21 @@ const Invoice: React.FC = () => {
             </Col>
           ))}
         </Row>
-        <Pagination
-          current={currentPage}
-          pageSize={pageSize}
-          total={invoiceDetails.length}
-          onChange={handlePageChange}
-          style={{ marginTop: 16, textAlign: "center" }}
-        />
+        <div className='flex items-center justify-between mt-4'>
+          <Pagination
+            current={currentPage}
+            pageSize={pageSize}
+            total={invoiceDetails.length}
+            onChange={handlePageChange}
+            style={{ textAlign: "center" }}
+          />
+          <div className='flex items-center justify-end gap-2'>
+            <Button onClick={handleCancelSendInvoice}>Hủy</Button>
+            <Button type='primary' onClick={handleSendInvoice}>
+              Gửi
+            </Button>
+          </div>
+        </div>
       </Modal>
       <div className='bg-white p-3 rounded-xl flex items-center justify-between gap-3'>
         <Input placeholder='Tìm kiếm' value={searchText} onChange={handleSearchChange} />

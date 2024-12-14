@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Button, DatePicker, Flex, Form, Input, Modal, notification, Table } from "antd";
+import { Button, DatePicker, Flex, Form, Input, Modal, notification, Select, Table } from "antd";
 import type { TableColumnsType, TableProps } from "antd";
 import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import "./Expense.css";
 type TableRowSelection<T extends object = object> = TableProps<T>["rowSelection"];
 
 export interface ExpenseDataType {
@@ -163,17 +164,28 @@ const Expense: React.FC = () => {
       // Cập nhật thông tin chi phí
       const updatedData = expenseData.map((item) => (item.expenseId === currentExpense.expenseId ? { ...item, ...values } : item));
       setExpenseData(updatedData);
+      notification.success({
+        message: "Thông báo",
+        description: "Cập nhật chi phí thành công",
+      });
+      setCurrentExpense(null);
+      setSelectedRowKeys([]);
     } else {
       // Thêm mới chi phí
+      console.log("values", values);
       const newExpense = { ...values, expenseId: `KP${(expenseData.length + 1).toString().padStart(3, "0")}` };
       setExpenseData([...expenseData, newExpense]);
+      notification.success({
+        message: "Thông báo",
+        description: "Thêm mới chi phí thành công",
+      });
     }
-
     setIsModalOpen(false);
     form.resetFields();
   };
   const showModal = (isEdit: boolean) => {
     if (!isEdit) {
+      form.setFieldValue("expenseId", `KP${(expenseData.length + 1).toString().padStart(3, "0")}`);
       setIsModalOpen(true);
     }
     if (isEdit && selectedRowKeys.length === 1) {
@@ -256,8 +268,15 @@ const Expense: React.FC = () => {
               <Form.Item className='font-bold' label='Đơn giá' name='price' rules={[{ required: true, message: "Vui lòng nhập đơn giá!" }]}>
                 <Input className='p-2 border rounded' />
               </Form.Item>
-              <Form.Item className='font-bold' label='Trạng thái' name='status'>
-                <Input className='p-2 border rounded' />
+
+              <Form.Item className='font-bold status-selector' label='Trạng thái' name='status'>
+                <Select placeholder='Trạng thái' defaultValue={form.getFieldValue("status")}>
+                  {["Đang áp dụng", "Hết áp dụng"].map((status) => (
+                    <Select.Option key={status} value={status}>
+                      {status}
+                    </Select.Option>
+                  ))}
+                </Select>
               </Form.Item>
               <Form.Item className='font-bold' label='Ngày ngừng áp dụng' name='stopDate'>
                 <DatePicker format='DD-MM-YYYY' className='w-full p-2 border rounded' />
@@ -273,12 +292,18 @@ const Expense: React.FC = () => {
                 <Input className='p-2 border rounded' />
               </Form.Item>
               <Form.Item
-                className='font-bold'
+                className='font-bold status-selector'
                 label='Đơn vị tính'
                 name='unit'
                 rules={[{ required: true, message: "Vui lòng nhập đơn vị tính!" }]}
               >
-                <Input className='p-2 border rounded' />
+                <Select placeholder='Đơn vị tính' defaultValue={form.getFieldValue("unit")}>
+                  {["Hàng tháng", "Hàng năm", "Hàng quý"].map((status) => (
+                    <Select.Option key={status} value={status}>
+                      {status}
+                    </Select.Option>
+                  ))}
+                </Select>
               </Form.Item>
               <Form.Item className='font-bold' label='Ngày áp dụng' name='appliedDate'>
                 <DatePicker format='DD-MM-YYYY' className='w-full p-2 border rounded' />
