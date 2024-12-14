@@ -29,6 +29,7 @@ const Complaint = () => {
     id: `KN${(i + 1).toString().padStart(3, "0")}`,
     date: `2024-12-${(i % 30) + 1}`,
     status: i % 2 === 0 ? "Đã xử lý" : "Chưa xử lý",
+    feedbackContent: `Đây là nội dung phản hồi Đây là nội dung phản hồi của KN${(i + 1).toString().padStart(3, "0")}`,
   }));
   const [data, setData] = useState(initialData);
   const navigate = useNavigate();
@@ -73,6 +74,7 @@ const Complaint = () => {
         id: `KN${(lastIdNumber + 1).toString().padStart(3, "0")}`,
         date: new Date().toISOString().split("T")[0], // Lấy ngày hiện tại
         status: "Chưa xử lý",
+        feedbackContent: `test KN${(lastIdNumber + 1).toString().padStart(3, "0")}`,
       };
       notification.success({
         message: "Thành công",
@@ -108,6 +110,11 @@ const Complaint = () => {
     setData(filteredData);
   };
   const complaintOptions = Array.from(new Set(initialData.filter((data) => data.status === "Đã xử lý").map((data) => data.id)));
+
+  const handleChooseComplaint = (val: string) => {
+    const feedbackContent = data.find((item) => item.id === val)?.feedbackContent;
+    form.setFieldValue("feedbackContent", feedbackContent);
+  };
 
   return (
     <div className='sm:max-w-[390px] max-sm:w-full flex justify-center mx-auto h-screen '>
@@ -188,7 +195,7 @@ const Complaint = () => {
                       <div className=' gap-x-3'>
                         <div className='flex-1'>
                           <Form.Item className='mb-4' label='Chọn khiếu nại' name='complaintId'>
-                            <Select placeholder='Chọn khiếu nại'>
+                            <Select placeholder='Chọn khiếu nại' onChange={(val) => handleChooseComplaint(val)}>
                               {complaintOptions.map((complaint) => (
                                 <Select.Option key={complaint} value={complaint}>
                                   {complaint}
@@ -204,7 +211,7 @@ const Complaint = () => {
                         </div> */}
                         <div className='flex-1'>
                           <Form.Item className='mb-4' label='Nội dung phản hồi' name='feedbackContent'>
-                            <Input className='p-2 border rounded' />
+                            <TextArea disabled={true} rows={7} className='p-2 border rounded custom-textarea' />
                           </Form.Item>
                         </div>
                         <div className='flex-1'>
